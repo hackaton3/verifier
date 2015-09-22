@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans profile="a">
+	<bean id="a1" class="com.ericsson.test.A"></bean>
+</beans>
+<beans profile="b">
+	<bean id="a1" class="com.ericsson.test.A"></bean>
+</beans> 

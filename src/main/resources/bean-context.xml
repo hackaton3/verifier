@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+ xmlns:util="http://www.springframework.org/schema/util"
+ xsi:schemaLocation="http://www.springframework.org/schema/beans   
+                     http://www.springframework.org/schema/beans/spring-beans-4.0.xsd  
+                     http://www.springframework.org/schema/util  
+                     http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+                     
+     <beans profile="a">
+     	<util:list id="lista" list-class="java.util.ArrayList">  
+		    <value>1</value>  
+		    <value>2</value>  
+		    <value>3</value>  
+		    <value>4</value>  
+		</util:list>
+     </beans>
+     
+     <beans profile="b">
+     	<util:list id="lista" list-class="java.util.ArrayList">  
+		    <value>5</value>  
+		    <value>6</value>  
+		    <value>7</value>  
+		    <value>8</value>  
+		</util:list>
+     </beans>                     
+ 
+</beans> 
