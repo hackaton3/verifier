@@ -1,6 +1,7 @@
 package com.verify.main.verifyobjs;
 
 public class CustomField extends AbsBasicVerifyObject {
+    private static final long serialVersionUID = -711308313547617259L;
     private String name;
     private String assetPath;
     private String dataType;

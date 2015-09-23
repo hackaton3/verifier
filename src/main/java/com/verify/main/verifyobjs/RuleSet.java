@@ -1,6 +1,7 @@
 package com.verify.main.verifyobjs;
 
 public class RuleSet extends AbsBasicVerifyObject {
+    private static final long serialVersionUID = 6557791110471261587L;
     private String name;
     private String type;
     private String site;

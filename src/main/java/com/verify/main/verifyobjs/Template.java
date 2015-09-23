@@ -1,6 +1,7 @@
 package com.verify.main.verifyobjs;
 
 public class Template extends AbsBasicVerifyObject {
+    private static final long serialVersionUID = -8771771269347983831L;
     private String name;
     private String version;
     private String selectorKey;

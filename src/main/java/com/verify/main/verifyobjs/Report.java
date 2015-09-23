@@ -1,6 +1,7 @@
 package com.verify.main.verifyobjs;
 
 public class Report extends AbsBasicVerifyObject {
+    private static final long serialVersionUID = 6042488360625856316L;
     private String name;
     private String category;
     

@@ -1,6 +1,7 @@
 package com.verify.main.verifyobjs;
 
 public class Host extends AbsBasicVerifyObject {
+    private static final long serialVersionUID = 7907149344774500345L;
     private String name;
 
     public String getName() {

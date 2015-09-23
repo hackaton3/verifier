@@ -2,6 +2,8 @@ package com.verify.main.verifyobjs;
 
 
 public class Alert extends AbsBasicVerifyObject {
+    private static final long serialVersionUID = -7278384589971613765L;
+    
     private String name;
     private String pattern;
     private int threshCount;

@@ -4,6 +4,7 @@ package com.verify.main.verifyobjs;
  * "Resource" object.
  */
 public class Resourse extends AbsBasicVerifyObject {
+    private static final long serialVersionUID = 2586080192338193155L;
     private String name;
     private String resourceType;
     private String resourceGroup;

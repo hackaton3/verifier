@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Site extends AbsBasicVerifyObject {
+    private static final long serialVersionUID = -1202804113241124677L;
     private String name;
     private String externalId;
     private List<String> fileLookupKeys = new ArrayList<String>();
