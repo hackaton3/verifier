@@ -1,18 +1,24 @@
 package com.verify.main;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
+import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.beans.factory.config.YamlMapFactoryBean;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.io.ClassPathResource;
 
-import junit.framework.Assert;
+import static org.junit.Assert.*;
 
 public class TestConvertYaml {
+    private static final String ROOT_ELEMENT_NAME = "document";
 	
 	@Test
+	@Ignore
 	public void convertYaml(){
-		System.out.println("Start xml conversion testing...");
+		System.out.println("Start yaml conversion testing...");
 		
 		YamlPropertiesFactoryBean yamlFactory = new YamlPropertiesFactoryBean();
 		
@@ -24,6 +30,38 @@ public class TestConvertYaml {
 		
 		String url = pro.getProperty("environments.dev.url");
 		
-		Assert.assertEquals("failed", "http://dev.bar.com", url);
+		assertEquals("failed", "http://dev.bar.com", url);
 	}
+	
+    @Test
+    public void testAlertYamlUsingProperty() {
+        YamlPropertiesFactoryBean yamlFactory = new YamlPropertiesFactoryBean();
+        yamlFactory.setResources(new ClassPathResource("alerts.yaml"));
+        Properties propAlerts = yamlFactory.getObject();
+        assertNotNull(propAlerts);
+        for (Object key : propAlerts.keySet()) {
+            System.out.println(key);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testAlertYamlUsingMap() {
+        YamlMapFactoryBean yamlFactory = new YamlMapFactoryBean();
+        yamlFactory.setResources(new ClassPathResource("alerts.yaml"));
+        Map<String, Object> rootAlert = yamlFactory.getObject();
+        assertNotNull(rootAlert);
+        
+        Object firstEle = rootAlert.get(ROOT_ELEMENT_NAME);
+        assertNotNull(firstEle);
+        System.out.println(firstEle);
+        assertTrue(firstEle instanceof List);
+        
+        List<Map<String, Object>> firstList = (List<Map<String, Object>>) firstEle;
+        for (Map<String, Object> fmap : firstList) {
+            for (Object key : fmap.keySet()) {
+                System.out.println(key);
+            }
+        }
+    }
 }

@@ -1,0 +1,50 @@
+- alert:
+    name: Database Operation Failed
+    pattern: .*SQLException.*
+    trap: 1
+- alert:
+    name: Drive Status
+    pattern: .*drive status.*
+    trap: 15
+- alert:
+    frequency:
+      count: 1
+      time: 60
+    name: EPGManager Translation Alert
+    pattern: .*Failure to translate EPG error for.*
+    trap: 16
+- alert:
+    frequency:
+      count: 100
+      time: 00:00:01
+    name: Missing ADI
+    pattern: (.*by:.*|.*BUSY.*)Error determining metadata path.*
+    trap: 1010
+- alert:
+    frequency:
+      count: 100
+      time: 00:00:01
+    name: Ingest Validation Failure
+    pattern: .*validationMessages.*= Error:.*
+    trap: 1018
+- alert:
+    frequency:
+      count: 1
+      time: 01:00:00
+    name: Mediapath Distribution Success
+    pattern: .*Successfully pitched.*
+    trap: 1111
+- alert:
+    frequency:
+      count: 1
+      time: 00:05:00
+    name: Verifier Failure
+    pattern: .*Verification of file:.*
+    trap: 1110
+- alert:
+    frequency:
+      count: 100
+      time: 00:00:01
+    name: Baton QC Progress
+    pattern: .*BUSY \(Wait For Test Plan\) [0-9].*% complete.*
+    trap: 1027
