@@ -1,1 +1,2 @@
-# verifier
+# verifier 
+# Copyright@2015
