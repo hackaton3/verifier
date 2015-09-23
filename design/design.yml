@@ -21,14 +21,14 @@ resource:
 ruleSet:
     name: string
     type: string  # package name
-    site: string_TBD # site external id?
+    site: string # site external id?
     TBD: TBD # how to judge whether it is installed SUCCESSFULLY
 
 customField:
     name: string
     assetPath: string
     dataType: string
-    fieldType: string # or int
+    fieldType: string
 
 alert:
     name: string
@@ -41,6 +41,7 @@ alert:
 
 report:
     name: string
+    category: string
     TBD: TBD
 
 partner:
