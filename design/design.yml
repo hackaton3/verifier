@@ -126,3 +126,15 @@ resolveInstalledResults:
         - resolve reports    # ?
         - resolve partners   # DB?
         - resolve sites      # DB?
+
+# main() of this project
+# resolve arguments passed in from command line, like:
+# call resolveInstalledResults on site:
+#       java -jar XXX.jar --verify
+# call resolveExpectedInfo before release (ship expected info):
+#       java -jar XXX.jar --ship
+main:
+    input:
+        - command line arguments
+    output:
+        - error report of verification
