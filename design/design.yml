@@ -1,0 +1,127 @@
+#############################
+#       BASIC OBJECTS
+#############################
+host:
+    name: string
+
+template:
+    name: string
+    version: string
+    selectorKey: string
+
+resource:
+    name: string
+    resourceType: string  # resource type name?
+    resourceGroup: string # resource group name?
+    connectionString: string
+    heartbeatString: string
+    maxConcurrency: int
+    heartbeatFrequency: int
+
+ruleSet:
+    name: string
+    type: string  # package name
+    site: string_TBD # site external id?
+    TBD: TBD # how to judge whether it is installed SUCCESSFULLY
+
+customField:
+    name: string
+    assetPath: string
+    dataType: string
+    fieldType: string # or int
+
+alert:
+    name: string
+    pattern: string
+    threshCount: int
+    threshSeconds: int
+    freqCount: int
+    freqSecs: int
+    trap: int
+
+report:
+    name: string
+    TBD: TBD
+
+partner:
+    name: string
+    providerId: string
+
+site:
+    name: string
+    externalId: string
+    fileLookupKeys: List<String>
+    metadataFormat: string
+    distributionOption: int # or string
+    distributionTemplate: string
+    alertDelayPeriod: int
+
+#############################
+#     CONTAINER OBJECTS
+#############################
+component:
+    name: string
+    path: string
+    hosts: list
+    templates: list
+    resources: list
+    ruleSets: list
+    customFields: list
+    alerts: list
+    reports: list
+    partners: list
+    sites: list
+
+#############################
+#       MODULES
+#############################
+# a MAIN entry which will be executed before our final release
+resolveExpectedInfo:
+    input:
+        - config.json # JSON
+        - template source code # XML
+        - rule sets definition # XML
+        - TBD # for reports
+    output:
+        - component objects # TBD: what format to store it?
+        
+    # TBD: interfaces with parent module
+    # call each sub-module only once, or each for every component?
+    sub-modules:
+        - resolve hosts      # config.json
+        - resolve templates  # config.json & template source code
+        - resolve resources  # config.json
+        - resolve ruleSets   # config.json & RuleSets...xml
+        - resolve customFields  # config.json
+        - resolve alerts     # config.json
+        - resolve reports    # ?
+        - resolve partners   # config.json
+        - resolve sites      # config.json
+
+resolveInstalledComponents:
+    input:
+        - python output # or resolve info ourselves
+        - OUTPUT of resolveExpectedInfo # fill sub-lists into components
+    output:
+        - installed component objects
+
+# a MAIN entry which will be executed on site
+resolveInstalledResults:
+    input:
+        - OUTPUT of resolveInstalledComponents
+        - /etc/hosts # on all APP nodes
+        - install_sysInfo.json
+        - /etc/logstash/alerts.yaml # on all CS nodes
+    output:
+        - missed objects # error report of verification
+        
+    sub-modules:
+        - resolve hosts  # /etc/hosts
+        - resolve templates  # DB
+        - resolve resources  # ?
+        - resolve ruleSets   # DB
+        - resolve customFields  # DB?
+        - resolve alerts     # 3.x - DB, 4.x - /etc/logstash/alerts.yaml
+        - resolve reports    # ?
+        - resolve partners   # DB?
+        - resolve sites      # DB?
