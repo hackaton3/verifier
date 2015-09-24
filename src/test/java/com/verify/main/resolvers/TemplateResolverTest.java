@@ -1,34 +1,38 @@
 package com.verify.main.resolvers;
 
-import java.sql.SQLException;
+import java.util.List;
 
-import oracle.jdbc.pool.OracleDataSource;
-
+import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.jdbc.core.JdbcTemplate;
+
+import com.verify.main.util.SSHUtil;
+import com.verify.main.verifyobjs.Template;
 
 public class TemplateResolverTest {
 
 	@Test
 	public void testResolveActualTemplate() {
 		TemplateResolver resolver = new TemplateResolver();
+		List<Template> templates = null;
 		try {
-			resolver.setTempalte(getJdbcTemplate());
-			resolver.resolveActualTemplate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			templates = resolver.resolveActualTemplate("10.116.54.14", "ttv", "wfs", "Wf$1234");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+		Assert.assertTrue(templates != null);
+		Assert.assertTrue(templates.size() > 0);
+		
 	}
 	
-	private JdbcTemplate getJdbcTemplate() throws SQLException{
-		OracleDataSource dataSource = new OracleDataSource();
-		dataSource.setURL("jdbc:oracle:thin:@172.16.8.50:1521/ttv");
-		dataSource.setUser("epgmanager");
-		dataSource.setPassword("epgmanager");
-		JdbcTemplate tempalte = new JdbcTemplate(dataSource);
-		return tempalte;
+	@Test
+	public void testUnpackRpm(){
+		SSHUtil util = new SSHUtil();
+		util.setHost("10.116.54.22");
+		util.setUser("root");
+		util.setPassword("root1234");
+		
+		util.runCommand("rpm2cpio /root/prepack-aio-3.9.000.016/rpms/ingest-common-workflows-3.9.000.001.rpm | cpio -idmv");
 	}
 
 }
