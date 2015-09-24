@@ -10,11 +10,11 @@ import org.springframework.beans.factory.config.YamlMapFactoryBean;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.io.ClassPathResource;
 
+import com.verify.main.util.CommonUtils;
+
 import static org.junit.Assert.*;
 
 public class TestConvertYaml {
-    private static final String ROOT_ELEMENT_NAME = "document";
-	
 	@Test
 	@Ignore
 	public void convertYaml(){
@@ -52,7 +52,7 @@ public class TestConvertYaml {
         Map<String, Object> rootAlert = yamlFactory.getObject();
         assertNotNull(rootAlert);
         
-        Object firstEle = rootAlert.get(ROOT_ELEMENT_NAME);
+        Object firstEle = rootAlert.get(CommonUtils.ROOT_ELEM_NAME_4YML);
         assertNotNull(firstEle);
         System.out.println(firstEle);
         assertTrue(firstEle instanceof List);

@@ -11,7 +11,7 @@ public class HostTest {
         Host host = new Host();
         host.setName("name01");
         System.out.println(host.toString());
-        assertTrue(true);
+        assertNotNull("No Exception Found.");
     }
 
 }

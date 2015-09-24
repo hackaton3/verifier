@@ -3,9 +3,9 @@ package com.verify.main.resolvers;
 import static org.junit.Assert.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.verify.main.verifyobjs.Alert;
@@ -13,9 +13,10 @@ import com.verify.main.verifyobjs.Alert;
 public class AlertResolverTest {
 
     @Test
-    @Ignore("Not yet implemented")
     public void testResolveAlertsFromCsNode() {
-        fail("Not yet implemented");
+        List<Alert> alerts = AlertResolver.resolveAlertsFromCsNode("10.116.54.21", "root", "root1234");
+        assertNotNull(alerts);
+        System.out.println(alerts.size());
     }
 
     @Test
