@@ -130,9 +130,9 @@ resolveInstalledResults:
 # main() of this project
 # resolve arguments passed in from command line, like:
 # call resolveInstalledResults on site:
-#       java -jar XXX.jar --verify
+#       java -jar XXX.jar --verify --install-pkg-root=/root/prepack-aio-release-3.9.000 --expect-info=/root/expectations.dat
 # call resolveExpectedInfo before release (ship expected info):
-#       java -jar XXX.jar --ship
+#       java -jar XXX.jar --ship --ws-root=/home/cms/workspace_prepack
 main:
     input:
         - command line arguments
