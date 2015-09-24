@@ -101,7 +101,7 @@ resolveExpectedInfo:
 
 resolveInstalledComponents:  # Scarlett
     input:
-        - python output # or resolve info ourselves
+        - resolve info ourselves
         - OUTPUT of resolveExpectedInfo # fill sub-lists into components
     output:
         - installed component objects

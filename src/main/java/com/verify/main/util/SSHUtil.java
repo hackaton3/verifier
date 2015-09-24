@@ -367,14 +367,6 @@ public class SSHUtil {
         return isPass;
     }
 
-    public static void main(String[] args) {
-        SSHUtil a = new SSHUtil();
-        a.setHost("10.116.5.99");
-        a.setPassword("root1234");
-        a.setUser("root");
-        a.runCommand("ls /var/lib/nobody/testautomation/PublisherXmltv/PublisherXmltv.xml");
-    }
-
     public String getHost() {
         return host;
     }
