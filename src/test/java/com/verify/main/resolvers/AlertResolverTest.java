@@ -28,8 +28,8 @@ public class AlertResolverTest {
         assertEquals(alertNormalTime.getTrap(), 15);
         assertEquals(alertNormalTime.getFreqCount(), 10);
         assertEquals(alertNormalTime.getFreqSecs(), 30);
-//        assertEquals(alertNormalTime.getThreshCount(), 1);
-//        assertEquals(alertNormalTime.getThreshSeconds(), 10);
+        assertEquals(alertNormalTime.getThreshCount(), 1);
+        assertEquals(alertNormalTime.getThreshSeconds(), 10);
     }
 
     @Test
@@ -44,8 +44,8 @@ public class AlertResolverTest {
         assertEquals(alertNormalTime.getTrap(), 15);
         assertEquals(alertNormalTime.getFreqCount(), 10);
         assertEquals(alertNormalTime.getFreqSecs(), 3630);
-//        assertEquals(alertNormalTime.getThreshCount(), 1);
-//        assertEquals(alertNormalTime.getThreshSeconds(), 90);
+        assertEquals(alertNormalTime.getThreshCount(), 1);
+        assertEquals(alertNormalTime.getThreshSeconds(), 90);
     }
     
     private Map<String, Object> constructAnAlertMap(String name, String pattern, String trap,
@@ -60,7 +60,6 @@ public class AlertResolverTest {
         mapFreq.put("time", freqTime);
         mapAlert.put("frequency", mapFreq);
         
-        // TODO
         Map<String, Object> mapThresh = new HashMap<String, Object>();
         mapThresh.put("count", threshCount);
         mapThresh.put("time", threshTime);

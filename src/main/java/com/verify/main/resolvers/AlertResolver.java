@@ -57,7 +57,18 @@ public class AlertResolver {
             }
         }
         
-        // TODO: thresh
+        if (mapAlert.containsKey("threshold")) {
+            Assert.isInstanceOf(Map.class, mapAlert.get("threshold"));
+            Map<String, Object> mapThresh = (Map<String, Object>) mapAlert.get("threshold");
+            if (mapThresh.containsKey("count")) {
+                String threshCount = CommonUtils.nullSafeToString(mapThresh.get("count"));
+                alert.setThreshCount(NumberUtils.toInt(threshCount));
+            }
+            if (mapThresh.containsKey("time")) {
+                String threshTime = CommonUtils.nullSafeToString(mapThresh.get("time"));
+                alert.setThreshSeconds(convertTimeToSecsNum(threshTime));
+            }
+        }
         
         return alert;
     }
