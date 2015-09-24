@@ -3,6 +3,8 @@ package com.verify.main.util;
 public class CommonUtils {
     public static final String ROOT_ELEM_NAME_4YML = "document";
     
+    public static final String HOST_FILE = "/etc/hosts";
+    
     /**
      * Already thought about these options:
      * <ul>
