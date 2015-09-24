@@ -1,0 +1,16 @@
+127.0.0.1       localhost       localhost.localdomain localhost4 localhost4.localdomain4
+::1     localhost       localhost.localdomain localhost6 localhost6.localdomain6
+10.116.54.12    ACSServer
+
+127.0.0.1       Heavy_Use_FMS
+127.0.0.1       Metadata_FMS
+10.116.54.18    ftp-cdn
+127.0.0.1       cacs
+10.116.54.18    edgeware_MDMS
+10.116.54.18    edgeware.images_MDMS
+10.116.1.135    mdms
+10.116.49.132   Package NameServer PropagationDirector
+10.116.49.67    fabrix
+10.116.49.67    fabrix-additional
+10.116.49.67    fabrix-secondary
+10.116.49.67    fabrix-additional-secondary
