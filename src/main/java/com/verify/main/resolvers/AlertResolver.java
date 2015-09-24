@@ -1,18 +1,23 @@
 package com.verify.main.resolvers;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.config.YamlMapFactoryBean;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.util.Assert;
 
 import com.verify.main.util.CommonUtils;
+import com.verify.main.util.SSHUtil;
 import com.verify.main.verifyobjs.Alert;
 
 public class AlertResolver {
@@ -22,12 +27,35 @@ public class AlertResolver {
     
     private static final String ALERT_YAML_PATH = "/etc/logstash/alerts.yaml";
     
-    public static List<Alert> resolveAlertsFromCsNode(String csip) {
-        List<Alert> alerts = new ArrayList<Alert>();
+    @SuppressWarnings("unchecked")
+    public static List<Alert> resolveAlertsFromCsNode(String ip, String user, String passwd) {
+        List<Alert> alertsToReturn = new ArrayList<Alert>();
         
-        // TODO: resolve alerts.yaml from a remote CS node.
+        String tempFile = System.getProperty("java.io.tmpdir") + "alerts-yaml-" + System.nanoTime();
+        SSHUtil sshClient = new SSHUtil(); 
+        sshClient.setHost(ip);
+        sshClient.setUser(user);
+        sshClient.setPassword(passwd);
         
-        return alerts;
+        try {
+            sshClient.getFile(ALERT_YAML_PATH, tempFile);
+            
+            YamlMapFactoryBean yamlFactory = new YamlMapFactoryBean();
+            yamlFactory.setResources(new FileSystemResource(tempFile));
+            Map<String, Object> doc = yamlFactory.getObject();
+            Object rootElement = doc.get(CommonUtils.ROOT_ELEM_NAME_4YML);
+            List<Map<String, Object>> ymlAlerts = (List<Map<String, Object>>) rootElement;
+            for (Map<String, Object> mapAlert : ymlAlerts) {
+                alertsToReturn.add(populateAlert(mapAlert));
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+        } finally {
+            FileUtils.deleteQuietly(new File(tempFile)); 
+        }
+        
+        return alertsToReturn;
     }
     
     @SuppressWarnings("unchecked")

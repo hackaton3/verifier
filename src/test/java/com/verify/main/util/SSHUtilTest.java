@@ -38,7 +38,7 @@ public class SSHUtilTest {
         util.setPassword(TEST_PWD);
         util.setUser(TEST_USR);
         util.runCommand("ls /home");
-        assertTrue("No Exception Found." != null);
+        assertNotNull("No Exception Found.");
     }
 
 }

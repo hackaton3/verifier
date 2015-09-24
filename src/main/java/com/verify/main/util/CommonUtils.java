@@ -1,6 +1,8 @@
 package com.verify.main.util;
 
 public class CommonUtils {
+    public static final String ROOT_ELEM_NAME_4YML = "document";
+    
     /**
      * Already thought about these options:
      * <ul>
