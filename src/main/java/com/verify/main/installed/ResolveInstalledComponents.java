@@ -19,7 +19,7 @@ import com.verify.main.verifyobjs.Component;
 
 public class ResolveInstalledComponents {
 	
-	private String INSTALLED_COMPONENTS_FILE = "/opt/tandbergtv/cms/prepack/installedcomponent.json";
+	private String INSTALLED_COMPONENTS_FILE = "/opt/tandbergtv/cms/prepack/installedcomponent.json"; //C:\Users\esijwen\Desktop\installedcomponent.json
 	private List<Component> standardComponents;
 	private List<Component> installedComponents = new ArrayList<Component>();
 	
@@ -97,6 +97,12 @@ public class ResolveInstalledComponents {
 		return expectedInstalledComponentsName;
 		
 	
+	}
+	
+	public static void main(String[] args) {
+		String standardFile = "C:\\CMS\\GiveMe5\\codes\\src\\test\\resources\\SampleComponentList.dat";
+		standardFile = standardFile.replace("\\", "/");
+		System.out.println(new ResolveInstalledComponents().resolve(standardFile));
 	}
 
 }
