@@ -32,7 +32,8 @@ public class TemplateResolverTest {
 		util.setUser("root");
 		util.setPassword("root1234");
 		
-		util.runCommand("rpm2cpio /root/prepack-aio-3.9.000.016/rpms/ingest-common-workflows-3.9.000.001.rpm | cpio -idmv");
+		util.runCommand("cd /root/prepack-aio-3.9.000.016/rpms/; rpm2cpio /root/prepack-aio-3.9.000.016/rpms/ingest-common-workflows-3.9.000.001.rpm | cpio -div");
+//		util.runCommand("cp /root/prepack-aio-3.9.000.016/rpms/ingest-common-workflows-3.9.000.001.rpm /tmp/ingest-common-workflows-3.9.000.001.rpm");
 	}
 
 }
