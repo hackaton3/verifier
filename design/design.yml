@@ -107,7 +107,7 @@ resolveInstalledComponents:  # Scarlett
         - installed component objects
 
 # a MAIN entry which will be executed on site
-resolveInstalledResults:
+resolveInstalledResults:     # Will
     input:
         - OUTPUT of resolveInstalledComponents
         - /etc/hosts # on all APP nodes
@@ -119,7 +119,7 @@ resolveInstalledResults:
     sub-modules:
         - resolve hosts  # /etc/hosts     # Simon
         - resolve templates  # DB         # Ray
-        - resolve resources  # ?
+        - resolve resources  # DB         # Simon
         - resolve ruleSets   # DB
         - resolve customFields  # DB?
         - resolve alerts     # 3.x - DB, 4.x - /etc/logstash/alerts.yaml   # Will

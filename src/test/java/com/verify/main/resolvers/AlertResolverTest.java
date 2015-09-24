@@ -17,6 +17,7 @@ public class AlertResolverTest {
         List<Alert> alerts = AlertResolver.resolveAlertsFromCsNode("10.116.54.21", "root", "root1234");
         assertNotNull(alerts);
         System.out.println(alerts.size());
+        assertTrue(alerts.size() > 0);
     }
 
     @Test

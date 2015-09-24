@@ -1,0 +1,27 @@
+{
+    "name":"CMS AIO PrePack",
+    
+    "version":"Prepack_Current_Version",
+	
+    "cms": {"version":"3.0.000.189_10-1-1","user":"admin","password":"admin"},
+	
+    "oracle":{"sid":"ttv","user":"wfs","password":"Wf$1234","host":"dbserver","port":"1521"},
+    
+    "postgresql":{"sid":"ttv","user":"wfs","password":"Wf$1234","host":"dbserver","port":"5444"},
+    
+    "upgradePath": [
+    	"3.8-3.9"
+    ],
+    
+    "cluster_service_nodes": [
+        {"ip":"", "user":"", "password":"", "rootPasswd":""}
+    ],
+    
+    "cluster_app_nodes": [
+    ],
+    
+    "__sample_for_cluster_nodes" : [
+        {"ip":"127.0.0.1", "user":"cms", "password":"cmspwd", "rootPasswd":"rootpwd"}
+    ]
+
+}
