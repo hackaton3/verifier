@@ -99,7 +99,7 @@ resolveExpectedInfo:
         - resolve partners   # config.json
         - resolve sites      # config.json
 
-resolveInstalledComponents:
+resolveInstalledComponents:  # Scarlett
     input:
         - python output # or resolve info ourselves
         - OUTPUT of resolveExpectedInfo # fill sub-lists into components
@@ -117,12 +117,12 @@ resolveInstalledResults:
         - missed objects # error report of verification
         
     sub-modules:
-        - resolve hosts  # /etc/hosts
-        - resolve templates  # DB
+        - resolve hosts  # /etc/hosts     # Simon
+        - resolve templates  # DB         # Ray
         - resolve resources  # ?
         - resolve ruleSets   # DB
         - resolve customFields  # DB?
-        - resolve alerts     # 3.x - DB, 4.x - /etc/logstash/alerts.yaml
+        - resolve alerts     # 3.x - DB, 4.x - /etc/logstash/alerts.yaml   # Will
         - resolve reports    # ?
         - resolve partners   # DB?
         - resolve sites      # DB?
@@ -133,7 +133,7 @@ resolveInstalledResults:
 #       java -jar XXX.jar --verify --install-pkg-root=/root/prepack-aio-release-3.9.000 --expect-info=/root/expectations.dat
 # call resolveExpectedInfo before release (ship expected info):
 #       java -jar XXX.jar --ship --ws-root=/home/cms/workspace_prepack
-main:
+main:     # Tao
     input:
         - command line arguments
     output:
