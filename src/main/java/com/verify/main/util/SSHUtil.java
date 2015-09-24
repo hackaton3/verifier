@@ -1,4 +1,4 @@
-package com.ericsson;
+package com.verify.main.util;
 
 import java.io.File;
 import java.io.FileInputStream;
