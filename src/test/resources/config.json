@@ -1,0 +1,361 @@
+{
+    "hostnames": [
+	        "dbserver",
+	        "ACSServer",
+	        "watchpoint-app",
+	        "Heavy_Use_FMS",
+	        "Metadata_FMS"
+	],
+	
+	"resourceHosts": [
+		{"NAME": "Heavy_Use_FMS", "VALUE": "127.0.0.1"},
+		{"NAME": "Metadata_FMS", "VALUE": "127.0.0.1"}
+	],
+    
+    "otherRpms":[
+	        "prepack-custom-rules-*.rpm",
+	        "directory-watchfolder-*.rpm",
+	        "common-action-handler-*.rpm"
+	],   
+    
+    "commonRpms": [
+		"common-alert-client-*.rpm",
+		"prepack-auto-fill-providers-*.rpm"
+	], 
+    	
+	"resourceTypeRpms":[
+	        "cablelabs-vod-1.1-metadata-parser-*.rpm",
+	        "content-management-additional-*.rpm",
+	        "variable-functions-*.rpm",
+	        "utilities-*.rpm",
+	        "filesystem-lock-*.rpm",
+	        "generic-metadata-parser-*.rpm",
+	        "profile-loader-*.rpm"
+	],
+    
+    "resourceGroupRpms":[
+            "file-subsystem-groups-*.rpm",
+            "contract-manager-groups-*.rpm"
+    ],
+	
+	"templateRpms":[
+            "aio-content-processing-workflows-*.rpm",
+            "delete-workflows-*.rpm",
+            "ingest-common-workflows-*.rpm", 
+            "validate-matedata-workflows-*.rpm",
+            "file-size-checksum-calculation-workflows-*.rpm",
+            "asset-processing-workflows-*.rpm",
+            "content-image-processing-workflows-*.rpm"
+            
+	],
+	
+	"params":[
+			{"NAME":"USE_CLASSIC_INGEST_MODE","VALUE":"true"},
+			{"NAME":"AUTOINGEST_CONTENT_CLASS","VALUE":"Default"}
+	],
+	
+	"selectorKeys": [
+	        {"SELECTIONKEY": "SM0103", "TEMPLATE":"Target Title"},
+	        {"SELECTIONKEY": "120112", "TEMPLATE":"Ingest Common Template"},
+	        {"SELECTIONKEY": "AD0101", "TEMPLATE":"Ingest Common Template"},
+	        {"SELECTIONKEY": "CM0155", "TEMPLATE":"Ingest Common Template"},
+	        {"SELECTIONKEY": "re0101", "TEMPLATE":"Content Normalization"}
+	], 
+	
+	"contentClasses":[
+	    {"NAME":"Default", "DESCRIPTION":"Default content class", "CONTENTCLASSFILES":[{"FILENAME":"ContentClasses.Base.xml"},{"FILENAME":"ContentClasses.CustomFields.xml"}]}
+	],
+
+	"partners": [
+	        {"NAME":"Ericsson",	"PARTNERTYPE":2,	"CONTENTCLASSNAME":["Default"],	"PROVIDERID":["ericsson.com","Local"]}
+	],
+	
+	"postInstallationScripts" : [
+		"post-install.sh",
+		"cronjob/cronjob-install.sh"
+	],
+	
+	"ruleSets": [
+       {"FILENAME": "RuleSets.CP_set_content_processing_profile.xml"},  
+       {"FILENAME": "RuleSets.CP_set_content_processing_preferences.xml"},  
+       {"FILENAME": "RuleSets.CP_set_asset_generic_platform_key.xml"},
+       {"FILENAME": "RuleSets.CP_set_title_state_machine_profile.xml"},
+	   {"FILENAME": "RuleSets.CP_check_state_is_required_Do_Remove_Encrypt_Asset.xml"},
+	   {"FILENAME": "RuleSets.CP_check_state_is_required_Do_Combining.xml"},
+	   {"FILENAME": "RuleSets.CP_check_state_is_required_Do_Content_Evaluation.xml"},
+	   {"FILENAME": "RuleSets.CP_check_state_is_required_Do_Metadata_Validation.xml"},
+	   {"FILENAME": "RuleSets.CP_check_state_is_required_Do_QC.xml"},
+	   {"FILENAME": "RuleSets.CP_check_state_is_required_Do_Transcoding.xml"},
+	   {"FILENAME": "RuleSets.CP_check_state_is_required_Do_Post_QC.xml"},
+	   {"FILENAME": "RuleSets.CP_check_state_is_required_Do_Encryption.xml"},
+	   {"FILENAME": "RuleSets.CP_set_content_processing_status.xml"}, 
+	   {"FILENAME": "RuleSets.CP_set_title_state.xml"},
+	   {"FILENAME": "RuleSets.CP_determine_assets_to_handle_Do_Combining.xml"},
+	   {"FILENAME": "RuleSets.CP_determine_assets_to_handle_Do_Content_Evaluation.xml"},
+	   {"FILENAME": "RuleSets.CP_determine_assets_to_handle_Do_Encryption.xml"},
+	   {"FILENAME": "RuleSets.CP_determine_assets_to_handle_Do_Post_QC.xml"},
+	   {"FILENAME": "RuleSets.CP_determine_assets_to_handle_Do_QC.xml"},
+	   {"FILENAME": "RuleSets.CP_determine_assets_to_handle_Do_Transcoding.xml"},
+	   {"FILENAME": "RuleSets.CP_determine_assets_to_handle_Do_Asset_Processing.xml"},
+       {"FILENAME": "RuleSets.Normalization.xml"}, 
+	   {"FILENAME": "RuleSets.ContentProcessing.xml"},
+	   {"FILENAME": "RuleSets.ContentProcessing_Do_Asset_Processing.xml"},       
+	   {"FILENAME": "RuleSets.ContentProcessing_Do_FileSize_Checksum_Calculation.xml"},
+	   {"FILENAME": "RuleSets.CP_copy_asset_fields.xml"},
+	   {"FILENAME": "RuleSets.CP_combine_metadata_field.xml"},
+       {"FILENAME": "RuleSets.Validation.xml"},
+       {"FILENAME": "RuleSets.Set_Validate_Metadata_For_Ingestion.xml"},
+       {"FILENAME": "RuleSets.ContentProcessing_Do_Image_Processing.xml"},
+       {"FILENAME": "RuleSets.CP_check_state_is_required_Do_Image_Processing.xml"},
+       {"FILENAME": "RuleSets.CP_determine_assets_to_handle_Do_Image_Processing.xml"}
+	],
+	
+	 "customFields": [
+	        {"DISPLAY_NAME":"Custom Fields","ASSET_PATH":"PACKAGE/TITLE", "UUID":"92733473-ee99-5cb9-b273-fbe93ba75997","FIELDS": [
+                    {"NAME": "CP_Profile", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Content Processing Profile", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+                    {"NAME": "Standalone_Profile", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Standalone Profile", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+                    {"NAME": "Standalone_Content_Processing", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Standalone Content Processing", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+                    {"NAME": "Remove_Encrypted_Assets", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Remove Encrypted Assets", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+                    {"NAME": "Remove_Encrypted_Assets_Method", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Remove Encrypted Assets Method", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+                    {"NAME": "Force_Targeting", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Force Targeting", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+                    {"NAME": "Title_State", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "State", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+                    {"NAME": "Validate_Metadata_For_Ingestion", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Validate Metadata For Ingestion", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+                    {"NAME": "Enforce_Checksums", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Enforce Checksums", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+                    {"NAME": "Creation_Date", "DATA_TYPE": "Date", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "Y", "DISPLAY_NAME": "Creation Date", "MULTIVALUE": "N", "FIELD_TYPE": 3},
+                    {"NAME": "ChecksumMismatchLevel", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Checksum Mismatch Level", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+                    {"NAME": "Update_Retarget_Mode", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Update Retarget Mode", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+                    {"NAME": "AssetId_Switching", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Asset_ID Switching", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+                    {"NAME": "Required_Title_States", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Required Title States", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+                    {"NAME": "Title_State_Machine_Event", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Title State Machine Event", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+                    {"NAME": "Title_State_Machine_Profile", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Title State Machine Profile", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+                    {"NAME": "CP_Title_Validation_Required", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "CP Title Validation Required", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+                    {"NAME": "LinkedParentTitle", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Linked Parent Title", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+                    {"NAME": "ChildTitleLinks", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "ChildTitleLinks", "MULTIVALUE": "Y", "FIELD_TYPE": 1},
+                    {"NAME": "Dist_Profile", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Distribution Profile", "MULTIVALUE": "N", "FIELD_TYPE": 1}
+	        ]},
+	        {"DISPLAY_NAME":"Custom Fields","ASSET_PATH":"PACKAGE/MOVIE", "UUID":"037a55f0-7023-5ea6-8c42-44e85fcd687b","FIELDS": [
+					{"NAME": "Combine_Required", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Combine Required",	"MULTIVALUE": "N", "FIELD_TYPE": 2},
+    				{"NAME": "ContentEvaluation", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Content Evaluation",	"MULTIVALUE": "N", "FIELD_TYPE": 2},
+					{"NAME": "Encryption_Required", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Encryption Required",	"MULTIVALUE": "N", "FIELD_TYPE": 2},
+					{"NAME": "QC_Required", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "QC Required",	"MULTIVALUE": "N", "FIELD_TYPE": 2},
+					{"NAME": "PlatformList", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "PlatformList", "MULTIVALUE": "N",	"FIELD_TYPE": 1},
+					{"NAME": "Network_Id", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Network Id", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+					{"NAME": "Generic_Platform_Key", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Generic Platform Key", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+					{"NAME": "AssetProcessingProfile", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Asset Processing Profile", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+					{"NAME": "Is_Reprocess", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Is Reprocess", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+					{"NAME": "Platform", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Platform", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+            		{"NAME": "Processing_Complete", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Processing Complete",	"MULTIVALUE": "N", "FIELD_TYPE": 2},
+            		{"NAME": "To_Be_Handled", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "To Be Handled", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+            		{"NAME": "Bandwidth", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Bandwidth", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+              		{"NAME": "Combine_Metadata_Field", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Combine_Metadata_Field", "MULTIVALUE": "Y", "FIELD_TYPE": 1},
+            		{"NAME": "ABR_FILESIZE", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "ABR File Size", "MULTIVALUE": "N", "FIELD_TYPE": 1}
+	        ]},
+	        {"DISPLAY_NAME":"Custom Fields","ASSET_PATH":"PACKAGE/PREVIEW", "UUID":"06e14814-9819-5950-8d9e-fcae3c1902e1","FIELDS": [
+			        {"NAME": "Combine_Required", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Combine Required",	"MULTIVALUE": "N", "FIELD_TYPE": 2},
+    				{"NAME": "ContentEvaluation", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Content Evaluation",	"MULTIVALUE": "N", "FIELD_TYPE": 2},
+			        {"NAME": "Encryption_Required", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Encryption Required",	"MULTIVALUE": "N", "FIELD_TYPE": 2},
+			        {"NAME": "QC_Required", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "QC Required",	"MULTIVALUE": "N", "FIELD_TYPE": 2},
+			        {"NAME": "PlatformList", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "PlatformList", "MULTIVALUE": "N",	"FIELD_TYPE": 1},
+			        {"NAME": "Network_Id", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Network Id", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+					{"NAME": "Generic_Platform_Key", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Generic Platform Key", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+					{"NAME": "AssetProcessingProfile", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Asset Processing Profile", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+			        {"NAME": "Is_Reprocess", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Is Reprocess", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+					{"NAME": "Platform", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Platform", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+            		{"NAME": "Processing_Complete", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Processing Complete",	"MULTIVALUE": "N", "FIELD_TYPE": 2},
+            		{"NAME": "To_Be_Handled", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "To Be Handled", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+            		{"NAME": "Bandwidth", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Bandwidth", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+             		{"NAME": "Combine_Metadata_Field", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Combine_Metadata_Field", "MULTIVALUE": "Y", "FIELD_TYPE": 1}, 
+            		{"NAME": "ABR_FILESIZE", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "ABR File Size", "MULTIVALUE": "N", "FIELD_TYPE": 1}
+	        ]},
+	        {"DISPLAY_NAME": "Custom Fields", "ASSET_PATH": "PACKAGE/POSTER", "UUID": "247ebac3-4d0a-460c-88e8-ca69d0c4a4d3", "FIELDS": [
+    				{"NAME": "ContentEvaluation", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Content Evaluation",	"MULTIVALUE": "N", "FIELD_TYPE": 2},
+		            {"NAME": "Is_Reprocess", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Is Reprocess", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+		            {"NAME": "To_Be_Handled", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "To Be Handled", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+		            {"NAME": "ImageProcess", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Image Process",	"MULTIVALUE": "N", "FIELD_TYPE": 2},
+		            {"NAME": "ImageProcess_Profile", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Image Process Profile",	"MULTIVALUE": "N", "FIELD_TYPE": 1},
+		            {"NAME": "Platform", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Platform",	"MULTIVALUE": "N", "FIELD_TYPE": 1}
+	        ]},
+	        {"DISPLAY_NAME": "Custom Fields", "ASSET_PATH": "PACKAGE/BOXCOVER", "UUID": "7e99e30f-27ab-4666-800d-48f77ad180aa", "FIELDS": [
+    				{"NAME": "ContentEvaluation", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Content Evaluation",	"MULTIVALUE": "N", "FIELD_TYPE": 2},
+	                {"NAME": "Is_Reprocess", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Is Reprocess", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+		            {"NAME": "To_Be_Handled", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "To Be Handled", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+		            {"NAME": "ImageProcess", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Image Process",	"MULTIVALUE": "N", "FIELD_TYPE": 2},
+		            {"NAME": "ImageProcess_Profile", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Image Process Profile",	"MULTIVALUE": "N", "FIELD_TYPE": 1},
+		            {"NAME": "Platform", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Platform",	"MULTIVALUE": "N", "FIELD_TYPE": 1}
+	        ]},
+	        {"DISPLAY_NAME": "Custom Fields", "ASSET_PATH": "PACKAGE/ENCRYPTED", "UUID": "5616899e-1358-4922-ac11-2b04a26720b4", "FIELDS": [
+			        {"NAME": "Platform", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Platform", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+    				{"NAME": "ContentEvaluation", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Content Evaluation",	"MULTIVALUE": "N", "FIELD_TYPE": 2},
+			        {"NAME": "Encryption_Required", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Encryption Required",	"MULTIVALUE": "N", "FIELD_TYPE": 2},
+			        {"NAME": "QC_Required", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "QC Required",	"MULTIVALUE": "N", "FIELD_TYPE": 2},
+			        {"NAME": "PlatformList", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "PlatformList", "MULTIVALUE": "N",	"FIELD_TYPE": 1},
+			        {"NAME": "ParentAssetType", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Parent Asset Type",	"MULTIVALUE": "N", "FIELD_TYPE": 2},
+			        {"NAME": "Processing_Complete", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Processing Complete",	"MULTIVALUE": "N", "FIELD_TYPE": 2},
+			        {"NAME": "Network_Id", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Network Id", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+					{"NAME": "Generic_Platform_Key", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Generic Platform Key", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+			        {"NAME": "Is_Reprocess", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Is Reprocess", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+			        {"NAME": "File_Rename_Pattern", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "File Rename Pattern", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+			        {"NAME": "TrickModeRestriction", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Trick Mode Restriction", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+			        {"NAME": "ViewingCanBeResumed", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Viewing Can Be Resumed", "MULTIVALUE": "N", "FIELD_TYPE": 2},
+			        {"NAME": "Language", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Language", "MULTIVALUE": "Y", "FIELD_TYPE": 1},
+			        {"NAME": "SubTitleLanguage", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "SubTitle Language", "MULTIVALUE": "Y", "FIELD_TYPE": 1},
+			        {"NAME": "DubbedLanguage", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Dubbed Language", "MULTIVALUE": "Y", "FIELD_TYPE": 1},
+			        {"NAME": "MSORating", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "MSO Rating", "MULTIVALUE": "Y", "FIELD_TYPE": 1},
+			        {"NAME": "TargetAudience", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Target Audience", "MULTIVALUE": "Y", "FIELD_TYPE": 1},
+			        {"NAME": "RatingSystem", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Rating System", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+			        {"NAME": "RatingValue", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Rating Value", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+			        {"NAME": "MaximumCopiesAllowed", "DATA_TYPE": "Integer", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Maximum Copies Allowed", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+			        {"NAME": "MaxPlayCount", "DATA_TYPE": "Integer", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Max Play Count", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+			        {"NAME": "DownloadWindowOffset", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Download Window Offset", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+			        {"NAME": "DownloadPurchasePolicy", "DATA_TYPE": "String", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "Download Purchase Policy", "MULTIVALUE": "N", "FIELD_TYPE": 1},
+			        {"NAME": "To_Be_Handled", "DATA_TYPE": "Boolean", "JOB_PARAMETER": "N", "JOB_SCHEDULE_PARAMETER": "N", "DISPLAY_NAME": "To Be Handled", "MULTIVALUE": "N", "FIELD_TYPE": 2}
+	        ]}
+	],
+	
+	"resources":[
+	   {"NAME":"Content Management","RESOURCETYPENAME":"Content Management","RESOURCEGROUPNAME":["Content Management"],"CONNECTIONSTRING":"http://Content-Management","MAXCONCURRENTUSERS":20,"HEARTBEATCONNECTIONSTRING": "","HEARTBEATFREQUENCY": null,"USERNAME": ""},
+	   {"NAME":"Contract Manager","RESOURCETYPENAME":"Contract Manager","RESOURCEGROUPNAME":["Contract Manager"],"CONNECTIONSTRING":"http://Contract-Manager","MAXCONCURRENTUSERS":20,"HEARTBEATCONNECTIONSTRING": "","HEARTBEATFREQUENCY": null,"USERNAME": ""},
+	   {"NAME":"File Subsystem","RESOURCETYPENAME":"File Subsystem","RESOURCEGROUPNAME":["File Subsystem"],"CONNECTIONSTRING":"http://localhost:8081/filemanager/services/FileSubsystemWebservice","MAXCONCURRENTUSERS":5,"HEARTBEATCONNECTIONSTRING":"http://localhost:8081/filemanager/services/FileSubsystemWebservice","HEARTBEATFREQUENCY":60,"USERNAME": ""},
+	   {"NAME":"File Subsystem Heavy Use","RESOURCETYPENAME":"File Subsystem","RESOURCEGROUPNAME":["Heavy Use FMS"],"CONNECTIONSTRING":"http://Heavy_Use_FMS:8081/filemanager/services/FileSubsystemWebservice","MAXCONCURRENTUSERS":5,"HEARTBEATCONNECTIONSTRING":"http://Heavy_Use_FMS:8081/filemanager/services/FileSubsystemWebservice","HEARTBEATFREQUENCY":60, "USERNAME": ""},
+	   {"NAME":"Metadata File Upload FMS","RESOURCETYPENAME":"File Subsystem","RESOURCEGROUPNAME":["Metadata FMS"],"CONNECTIONSTRING":"http://Metadata_FMS:8081/filemanager/services/FileSubsystemWebservice","MAXCONCURRENTUSERS":5,"HEARTBEATCONNECTIONSTRING":"http://Metadata_FMS:8081/filemanager/services/FileSubsystemWebservice","HEARTBEATFREQUENCY":60, "USERNAME": ""},
+	   {"NAME":"Rule Engine","RESOURCETYPENAME":"Rule Engine","RESOURCEGROUPNAME":["Rule Executor"],"CONNECTIONSTRING":"http://Rule_Engine","MAXCONCURRENTUSERS":10,"HEARTBEATCONNECTIONSTRING": "","HEARTBEATFREQUENCY": null,"USERNAME": ""},
+	   {"NAME":"Site Manager","RESOURCETYPENAME":"Site Manager","RESOURCEGROUPNAME":["Site Manager"],"CONNECTIONSTRING":"http://localhost/#sitemanager","MAXCONCURRENTUSERS":10,"HEARTBEATCONNECTIONSTRING": "","HEARTBEATFREQUENCY": null,"USERNAME": ""},
+	   {"NAME":"Utilities","RESOURCETYPENAME":"Utilities","RESOURCEGROUPNAME":["Utilities"],"CONNECTIONSTRING":"http://localhost:8080/utilities#","MAXCONCURRENTUSERS":10,"HEARTBEATCONNECTIONSTRING": "","HEARTBEATFREQUENCY": null,"USERNAME": ""},
+	   {"NAME":"Variable Functions","RESOURCETYPENAME":"Variable Functions","RESOURCEGROUPNAME":["Variable Functions"],"CONNECTIONSTRING":"http://localhost:8080/#vf","MAXCONCURRENTUSERS":2,"HEARTBEATCONNECTIONSTRING": "","HEARTBEATFREQUENCY": null,"USERNAME": ""},
+	   {"NAME":"Generic Metadata Parser","RESOURCETYPENAME":"Generic-Metadata-Parser","RESOURCEGROUPNAME":["Generic-Metadata-Parser"],"CONNECTIONSTRING":"http://GenericMetadataParser","MAXCONCURRENTUSERS":0,"HEARTBEATCONNECTIONSTRING": "","HEARTBEATFREQUENCY": null, "USERNAME": ""},
+	   {"NAME":"admin","RESOURCETYPENAME":"Human","RESOURCEGROUPNAME":["Human","Engineering", "Content Manager"],"CONNECTIONSTRING":"test@test.com","MAXCONCURRENTUSERS":0,"HEARTBEATCONNECTIONSTRING": "","HEARTBEATFREQUENCY": null, "USERNAME": "admin"},
+	   {"NAME":"CableLabs VOD 1.1 Metadata Parser","RESOURCETYPENAME":"CableLabs VOD 1.1 Metadata Parser","RESOURCEGROUPNAME":["CableLabs VOD 1.1 Metadata Parser"],"CONNECTIONSTRING":"http://MetadataParser","MAXCONCURRENTUSERS":0,"HEARTBEATCONNECTIONSTRING": "","HEARTBEATFREQUENCY": null, "USERNAME": ""},
+	   {"NAME":"Content Management Additional","RESOURCETYPENAME":"content-management-additional","RESOURCEGROUPNAME":["content-management-additional"],"CONNECTIONSTRING":"http://Content-Management-Additional","MAXCONCURRENTUSERS":20,"HEARTBEATCONNECTIONSTRING": "","HEARTBEATFREQUENCY": null, "USERNAME": ""},
+	   {"NAME":"Content Management Additional Title Delete","RESOURCETYPENAME":"content-management-additional","RESOURCEGROUPNAME":["content-management-additional-title-delete"],"CONNECTIONSTRING":"http://Content-Management-Additional-Delete","MAXCONCURRENTUSERS":20,"HEARTBEATCONNECTIONSTRING": "","HEARTBEATFREQUENCY": null, "USERNAME": ""},
+	   {"NAME":"Filesystem-Lock","RESOURCETYPENAME":"Filesystem-Lock","RESOURCEGROUPNAME":["Filesystem-Lock"],"CONNECTIONSTRING":"http://Filesystem-Lock","MAXCONCURRENTUSERS":20,"HEARTBEATCONNECTIONSTRING":"","HEARTBEATFREQUENCY": null, "USERNAME": ""},
+	   {"NAME":"Filesystem-Lock-Content-Processing","RESOURCETYPENAME":"Filesystem-Lock","RESOURCEGROUPNAME":["Filesystem-Lock-Content-Processing"],"CONNECTIONSTRING":"http://Filesystem-Lock-Content-Processing","MAXCONCURRENTUSERS":20,"HEARTBEATCONNECTIONSTRING":"","HEARTBEATFREQUENCY": null, "USERNAME": ""},
+	   {"NAME":"ImageMagick","RESOURCETYPENAME":"ImageMagick","RESOURCEGROUPNAME":["ImageMagick"],"CONNECTIONSTRING":"http://localhost:8081/imagemagick/services/ImageMagickWebService","MAXCONCURRENTUSERS":5,"HEARTBEATCONNECTIONSTRING": "http://localhost:8081/imagemagick/services/ImageMagickWebService","HEARTBEATFREQUENCY": 60, "USERNAME": ""},
+	   {"NAME":"Profile-Loader","RESOURCETYPENAME":"Profile-Loader","RESOURCEGROUPNAME":["Profile-Loader"],"CONNECTIONSTRING":"http://Profile-Loader","MAXCONCURRENTUSERS":20,"HEARTBEATCONNECTIONSTRING":"","HEARTBEATFREQUENCY": null, "USERNAME": ""}
+	],
+	
+	"alerts":[
+        {"ALERT_NAME": "Resource Failed Pattern", "PATTERN": ".*Failure Event for Resource.*", "ALERTS": [
+            {"IDENTIFIER": "Resource Failed", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1051}
+        ]},
+        {"ALERT_NAME": "Resource Initialization Failure Pattern", "PATTERN": ".*Initialization Error.*", "ALERTS": [
+            {"IDENTIFIER": "Resource Initialization Failure", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1052}
+        ]},
+        {"ALERT_NAME": "Workorder Save Failed Pattern", "PATTERN": ".*Failed to save the process.*", "ALERTS": [
+            {"IDENTIFIER": "Saving Workorder Failed", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1053}
+        ]},
+        {"ALERT_NAME": "Template Ingest Failure Pattern", "PATTERN": ".*Failed to ingest template.*", "ALERTS": [
+            {"IDENTIFIER": "Template Ingest Failure", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1054}
+        ]},
+        {"ALERT_NAME": "Create Workorder Failed Pattern", "PATTERN": ".*Failed to instantiate Work Order.*", "ALERTS": [
+            {"IDENTIFIER": "Workorder Creation Failed", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1055}
+        ]},
+        {"ALERT_NAME": "Workorder Failed Pattern", "PATTERN": ".*execution has failed.*", "ALERTS": [
+            {"IDENTIFIER": "Workorder Failed", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1056}
+        ]},
+        {"ALERT_NAME": "Package Provision Pattern", "PATTERN": ".*Received provision request for package.*", "ALERTS": [
+            {"IDENTIFIER": "Package Provision", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1000}
+        ]},
+        {"ALERT_NAME": "Missing ADI.xml Pattern", "PATTERN": "(.*by:.*|.*BUSY.*)Error determining metadata path.*", "ALERTS": [
+            {"IDENTIFIER": "Missing ADI", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1010}
+        ]},
+        {"ALERT_NAME": "Checksum Mismatch Warning Pattern", "PATTERN": ".*Checksum mismatch warning for title.*", "ALERTS": [
+            {"IDENTIFIER": "Checksum Mismatch Warning", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1011}
+        ]},
+        {"ALERT_NAME": "Checksum Mismatch Error Pattern", "PATTERN": ".*Checksum mismatch error for title.*", "ALERTS": [
+            {"IDENTIFIER": "Checksum Mismatch Error", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1124}
+        ]},
+        {"ALERT_NAME": "Missing Poster Asset Pattern", "PATTERN": ".*Error:Missing Poster asset.*", "ALERTS": [
+            {"IDENTIFIER": "Missing Poster Asset", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1012}
+        ]},
+        {"ALERT_NAME": "Missing Movie Asset Pattern", "PATTERN": ".*Error:Missing Movie asset.*", "ALERTS": [
+            {"IDENTIFIER": "Missing Movie Asset", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1013}
+        ]},
+        {"ALERT_NAME": "Missing Preview Asset Pattern", "PATTERN": ".*Error:Missing Preview asset.*", "ALERTS": [
+            {"IDENTIFIER": "Missing Preview Asset", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1014}
+        ]},
+        {"ALERT_NAME": "Ingest Validation Failed Pattern", "PATTERN": ".*validationMessages.*= Error:.*", "ALERTS": [
+            {"IDENTIFIER": "Ingest Validation Failure", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1018}
+        ]},
+        {"ALERT_NAME": "Ingest Validation Warning Pattern", "PATTERN": ".*validationMessages.*= Warning:.*", "ALERTS": [
+            {"IDENTIFIER": "Ingest Validation Warning", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1123}
+        ]},
+        {"ALERT_NAME": "Unmappped Content Deleted Pattern", "PATTERN": ".*Content Deleted From Unmapped Folder.*", "ALERTS": [
+            {"IDENTIFIER": "Unmappped Content Deleted", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1039}
+        ]},
+        {"ALERT_NAME": "Title Ready Pattern", "PATTERN": ".*Title Ready for first time for title.*", "ALERTS": [
+            {"IDENTIFIER": "Title Ready", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1040}
+        ]},
+        {"ALERT_NAME": "Content Moved To Unmapped Pattern", "PATTERN": ".*Has Been Moved To Unmapped Folder.*", "ALERTS": [
+            {"IDENTIFIER": "Content Moved To Unmapped Dir", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1041}
+        ]},
+        {"ALERT_NAME": "Schedule Delete Pattern", "PATTERN": ".*Schedule Delete for incompleted titleId.*", "ALERTS": [
+            {"IDENTIFIER": "Schedule Delete", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1042}
+        ]},
+        {"ALERT_NAME": "Metadata is outdated Pattern", "PATTERN": ".*Metadata is outdated.*", "ALERTS": [
+            {"IDENTIFIER": "Metadata is outdated", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1048}
+        ]},
+        {"ALERT_NAME": "Missing Metadata File Pattern", "PATTERN": ".*BUSY.*Error determining metadata path.*", "ALERTS": [
+            {"IDENTIFIER": "Missing Metadata File", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1049}
+        ]},
+        {"ALERT_NAME": "Title Delete Pattern", "PATTERN": ".* AMS Successfully deleted.*", "ALERTS": [
+            {"IDENTIFIER": "Title Delete", "THRESH_COUNT": 1, "THRESH_SECS": 60, "FREQ_COUNT":100, "FREQ_SECS": 1, "SNMP_TRAP": 1035}
+        ]},
+        {"ALERT_NAME": "Duplicate Parameters For Workorder Pattern", "PATTERN": ".*Workorder with same parameters already created in the past.*", "ALERTS": [
+			{ "IDENTIFIER": "Duplicate Parameters", "THRESH_COUNT": "1", "THRESH_SECS": "3600", "FREQ_COUNT": "1", "FREQ_SECS": "3600", "SNMP_TRAP": "1057" }
+		]}
+	],
+	
+
+	"queries": [
+			{"QUERY": "create table wfs.prepack_templates (project_name varchar2(50) not null, type_of_template varchar2(25) not null, wp_template_name varchar2(100) not null)", "COMMIT": "true"},  	
+			{"QUERY": "CREATE UNIQUE INDEX idx_prepack_templates ON wfs.prepack_templates(type_of_template,wp_template_name)", "COMMIT": "true"},
+			{"QUERY": "CREATE TABLE wfs.Prepack_Report_TitleInfo (workorder_id NUMBER(19, 0) NOT NULL, title_id NUMBER NOT NULL, final_workorder_id NUMBER(19, 0) NOT NULL, title_brief VARCHAR2(4000), pkg_asset_id VARCHAR2(4000), asset_count NUMBER(19, 0), license_start_date VARCHAR2(100), license_end_date VARCHAR2(100), provider_id VARCHAR2(4000), provider_name VARCHAR2(4000), document_id NUMBER,SITE_NAME VARCHAR2(255), title_asset_Id VARCHAR2(4000), title_display VARCHAR2(4000), app_type VARCHAR2(16), price NUMERIC(19, 2), CONSTRAINT PK_Prepack_Report_TitleInfo PRIMARY KEY(workorder_id, title_id))", "COMMIT": "true"},
+    		{"QUERY": "insert into wfs.prepack_templates (project_name, type_of_template, wp_template_name) values ('AMS','INGEST','Ingest Common Template')", "COMMIT": "true"},
+    		{"QUERY": "insert into wfs.prepack_templates (project_name, type_of_template, wp_template_name) values ('AMS','Delete','Title Delete')", "COMMIT": "true"}
+    ],
+	
+	"rollBackQueries": [
+            {"QUERY": "DROP VIEW WFS.VDW_PREPACK_REPORTS", "COMMIT": "true"},
+            {"QUERY": "DROP VIEW wfs.VDW_PREPACK_PURGE_REPORTS", "COMMIT":"true"}, 
+            {"QUERY": "DROP TABLE WFS.PREPACK_REPORT_TITLEINFO", "COMMIT": "true"},   
+            {"QUERY": "DROP TABLE WFS.PREPACK_TEMPLATES", "COMMIT": "true"}
+    ],
+    
+    "setupSFTP": "false",
+    
+	"directoriesToCreate": [
+		"/content/data/loosen_content_ingest",
+		"/content/data/loosen_content_ingest/ericsson.com",
+		"/content/data/routingDir",
+		"/content/lock"		
+	],
+	
+	"watchfolders": [
+	       {"path": "/content/data/routingDir",
+	        "filter": ".*XML,.*DTD",
+	        "frequency": 10,
+	        "processClass": "com.tandbergtv.watchpoint.watchfolder.processes.GeneralWatchfolderProcess",
+	        "messageUID": "120112",
+	        "commandParameter.priority": "NORMAL",
+	        "events": "create,delete",
+	        "threads": 10},
+	        {"path": "/content/data/ingest",
+	        "filter": ".*",
+	        "frequency": 10,
+	        "processClass": "com.tandbergtv.watchpoint.watchfolder.processes.GeneralWatchfolderProcess",
+	        "messageUID": "120112",
+	        "commandParameter.priority": "NORMAL",
+	        "routingDir": "/content/data/routingDir",	 
+	        "events": "create,delete",
+	        "threads": 10},
+	        {"path": "/content/data/loosen_content_ingest/ericsson.com",
+	        "filter": ".*",
+	        "frequency": 10,
+	        "processClass": "com.tandbergtv.watchpoint.watchfolder.processes.DefaultProcess",
+	        "messageUID": "120112",
+	        "commandParameter.priority": "NORMAL",
+	        "providerId": "ericsson.com",
+	        "events": "create,delete",
+	        "threads": 10}
+	]
+}
