@@ -10,7 +10,7 @@ import org.springframework.boot.json.GsonJsonParser;
 
 public class GsonUtil {
 
-	public Map<String, Object> convertJsonToMap(String jsonPath){
+	public static Map<String, Object> convertJsonToMap(String jsonPath){
 		
 		GsonJsonParser parser = new GsonJsonParser();
 		try {
