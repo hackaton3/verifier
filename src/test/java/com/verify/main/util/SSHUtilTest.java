@@ -1,12 +1,13 @@
 package com.verify.main.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.net.URL;
 
 import org.junit.Test;
-import org.springframework.core.io.ClassPathResource;
+
+import com.verify.main.TestUtils;
 
 public class SSHUtilTest {
     private static final String TEST_HOST = "10.116.54.21";
@@ -14,16 +15,10 @@ public class SSHUtilTest {
     private static final String TEST_PWD = "root1234";
     
     private static final String RMT_ALERT_CONF = "/etc/logstash/alerts.yaml";
-    
-    private File createTestOutputFolder() throws Exception {
-        URL testOutputUrl = new ClassPathResource("output").getURL();
-        File outputFolder = new File(testOutputUrl.getFile());
-        return outputFolder;
-    }
 
     @Test
     public void testGetFile() throws Exception {
-        File outputFolder = createTestOutputFolder();
+        File outputFolder = TestUtils.getTestOutputFolder();
         File localFile = new File(outputFolder, "alerts.yaml");
         
         SSHUtil util = new SSHUtil();
