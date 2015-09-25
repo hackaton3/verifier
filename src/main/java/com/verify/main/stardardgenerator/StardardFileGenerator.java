@@ -3,7 +3,7 @@ package com.verify.main.stardardgenerator;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.verify.main.MockUtils;
+import com.verify.main.util.MockUtils;
 import com.verify.main.verifyobjs.Alert;
 import com.verify.main.verifyobjs.Component;
 import com.verify.main.verifyobjs.Host;

@@ -1,4 +1,4 @@
-package com.verify.main;
+package com.verify.main.util;
 
 import com.verify.main.verifyobjs.Alert;
 import com.verify.main.verifyobjs.Component;
