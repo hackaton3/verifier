@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -17,14 +16,14 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.serializer.DefaultDeserializer;
 import org.springframework.core.serializer.DefaultSerializer;
 
-import com.verify.main.MockUtils;
 import com.verify.main.TestUtils;
+import com.verify.main.stardardgenerator.StardardFileGenerator;
 
 public class ComponentTest {
 
     @Test
     public void testSerialize() throws Exception {
-        List<Component> cmps = mockCompListData();
+        List<Component> cmps = StardardFileGenerator.generateFile();
         DefaultSerializer serializer = new DefaultSerializer();
         
         File outputFolder = TestUtils.getTestOutputFolder();
@@ -46,56 +45,4 @@ public class ComponentTest {
         assertEquals(cmps.size(), 3);
     }
     
-    public List<Component> mockCompListData() {
-        int i = 0;
-        List<Component> components = new ArrayList<Component>();
-        
-        Component cmp = MockUtils.mockEmptyComponent("Base", "/BASE");
-        List<Host> hosts = new ArrayList<Host>();
-        List<Template> templates = new ArrayList<Template>();
-        List<Alert> alerts = new ArrayList<Alert>();
-        for (int j = 0; j < 5; j++) {
-            i++;
-            hosts.add(MockUtils.mockOneHost("name" + i));
-            templates.add(MockUtils.mockOneTemplate("name"+i, String.valueOf(i), "00000"+i));
-            alerts.add(MockUtils.mockOneAlert("name"+i, "pattern"+i, i, i*2, i*3, i*2, i*3));
-        }
-        cmp.setHosts(hosts);
-        cmp.setTemplates(templates);
-        cmp.setAlerts(alerts);
-        components.add(cmp);
-        
-        cmp = MockUtils.mockEmptyComponent("Fabrix", "/DEVICES/CDN/FABRIX");
-        hosts = new ArrayList<Host>();
-        templates = new ArrayList<Template>();
-        alerts = new ArrayList<Alert>();
-        for (int j = 0; j < 5; j++) {
-            i++;
-            hosts.add(MockUtils.mockOneHost("name" + i));
-            templates.add(MockUtils.mockOneTemplate("name"+i, String.valueOf(i), "00000"+i));
-            alerts.add(MockUtils.mockOneAlert("name"+i, "pattern"+i, i, i*2, i*3, i*2, i*3));
-        }
-        cmp.setHosts(hosts);
-        cmp.setTemplates(templates);
-        cmp.setAlerts(alerts);
-        components.add(cmp);
-        
-        cmp = MockUtils.mockEmptyComponent("AMS", "/DOWNSTREAMS/AMS");
-        hosts = new ArrayList<Host>();
-        templates = new ArrayList<Template>();
-        alerts = new ArrayList<Alert>();
-        for (int j = 0; j < 5; j++) {
-            i++;
-            hosts.add(MockUtils.mockOneHost("name" + i));
-            templates.add(MockUtils.mockOneTemplate("name"+i, String.valueOf(i), "00000"+i));
-            alerts.add(MockUtils.mockOneAlert("name"+i, "pattern"+i, i, i*2, i*3, i*2, i*3));
-        }
-        cmp.setHosts(hosts);
-        cmp.setTemplates(templates);
-        cmp.setAlerts(alerts);
-        components.add(cmp);
-        
-        return components;
-    }
-
 }
