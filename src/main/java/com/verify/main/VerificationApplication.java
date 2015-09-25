@@ -2,6 +2,7 @@ package com.verify.main;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.verify.main.config.ValidatorConfig;
+import com.verify.main.installed.ResolveInstalledComponents;
 import com.verify.main.service.VerifyService;
 import com.verify.main.verifyobjs.Component;
 
@@ -27,15 +29,31 @@ public class VerificationApplication implements CommandLineRunner{
     public static void main(String[] args) {
         SpringApplication.run(VerificationApplication.class, args);
         
-        // TODO: extract arguments from command line
+        boolean verify = false;
         String sysInfoJsonPath = "";
+        String installPackagePath = "";
+        
+        // extract arguments from command line
         for (String arg : args) {
+            Matcher matPkgRoot = ARG_INSTALL_PKG_ROOT.matcher(arg);
+            Matcher matExpInfo = ARG_EXPECT_INFO.matcher(arg);
             
+            if (ARG_VERIFY.equals(arg)) {
+                verify = true;
+            } else if (matPkgRoot.find()) {
+                installPackagePath = matPkgRoot.group(1);
+            } else if (matExpInfo.find()) {
+                sysInfoJsonPath = matExpInfo.group(1);
+            }
         }
         
-        // TODO: get installed component list
-        List<Component> components = new ArrayList<Component>();
-        
+        if (verify) {
+            // resolve installed component list
+            ResolveInstalledComponents cmpResolver = new ResolveInstalledComponents();
+            List<Component> components = cmpResolver.resolve(installPackagePath);
+            
+            VerifyService.verify(components, sysInfoJsonPath);
+        }
     }
     
 	@Override
