@@ -10,14 +10,20 @@ import org.springframework.stereotype.Service;
 
 import com.verify.main.resolvers.AlertResolver;
 import com.verify.main.resolvers.HostResolver;
+import com.verify.main.resolvers.ResourseResolver;
+import com.verify.main.resolvers.TemplateResolver;
 import com.verify.main.util.CommonUtils;
 import com.verify.main.util.ErrorInfoHelper;
 import com.verify.main.util.GsonUtil;
 import com.verify.main.validators.AlertValidator;
 import com.verify.main.validators.HostValidator;
+import com.verify.main.validators.ResourceValidator;
+import com.verify.main.validators.TemplateValidator;
 import com.verify.main.verifyobjs.Alert;
 import com.verify.main.verifyobjs.Component;
 import com.verify.main.verifyobjs.Host;
+import com.verify.main.verifyobjs.Resourse;
+import com.verify.main.verifyobjs.Template;
 
 @Service
 public class VerifyService {
@@ -47,25 +53,21 @@ public class VerifyService {
         
         List<Host> installedHosts = resolveAllInstalledHosts(appInfo);
         List<Alert> installedAlerts = resolveAllInstalledAlerts(csInfo);
-        
-        // TODO: get installed templates
-        // ...........
-        
-        // TODO: get installed resources
-        // ...........
+        List<Template> installedTemplates = resolveAllInstalledTemplates(dbInfo);
+        List<Resourse> installedResources = resolveAllInstalledResources(dbInfo);
         
         StringBuilder errSummary = new StringBuilder();
         for (Component comp : expectedComponents) {
             StringBuilder errInfo4Component = new StringBuilder();
             
-            // verify hosts and raise errors 
+            // verify hosts and raise errors
             errInfo4Component.append(HostValidator.validate(comp.getHosts(), installedHosts));
-            // TODO: verify alerts and raise errors 
+            // verify alerts and raise errors
             errInfo4Component.append(AlertValidator.validate(comp.getAlerts(), installedAlerts));
-            // TODO: verify templates and raise errors
-            // ...........
-            // TODO: verify resources and raise errors
-            // ...........
+            // verify templates and raise errors
+            errInfo4Component.append(TemplateValidator.validate(comp.getTemplates(), installedTemplates));
+            // verify resources and raise errors
+            errInfo4Component.append(ResourceValidator.validate(comp.getResources(), installedResources));
             
             if (errInfo4Component.length() > 0) {
                 ErrorInfoHelper.addHeader2ErrorInfo(errInfo4Component, comp.getPath());
@@ -74,8 +76,12 @@ public class VerifyService {
             }
         }
         
-        // TODO: output the error report properly
-        // ..........
+        // output the error report properly
+        if (errSummary.length() > 0) {
+            logger.info("These component(s) are not installed successfully: " + System.lineSeparator() + errSummary.toString());
+        } else {
+            logger.info("Congratulations! All the components are installed successfully!");
+        }
     }
     
     private static List<Host> resolveAllInstalledHosts(List<Map<String, Object>> appInfo) {
@@ -107,5 +113,27 @@ public class VerifyService {
                     CommonUtils.nullSafeToString(cs.get("password"))));
         
         return installedAlerts;
+    }
+    
+    private static List<Template> resolveAllInstalledTemplates(Map<String, Object> dbInfo) {
+        List<Template> installedTemplates = new ArrayList<Template>();
+        installedTemplates.addAll(new TemplateResolver().resolveActualTemplate(
+                CommonUtils.nullSafeToString(dbInfo.get("host")),
+                CommonUtils.nullSafeToString(dbInfo.get("sid")),
+                CommonUtils.nullSafeToString(dbInfo.get("user")),
+                CommonUtils.nullSafeToString(dbInfo.get("password"))));
+        
+        return installedTemplates;
+    }
+    
+    private static List<Resourse> resolveAllInstalledResources(Map<String, Object> dbInfo) {
+        List<Resourse> installedResources = new ArrayList<Resourse>();
+        installedResources.addAll(ResourseResolver.getResourceFromDatabase(
+                CommonUtils.nullSafeToString(dbInfo.get("host")),
+                CommonUtils.nullSafeToString(dbInfo.get("sid")),
+                CommonUtils.nullSafeToString(dbInfo.get("user")),
+                CommonUtils.nullSafeToString(dbInfo.get("password"))));
+        
+        return installedResources;
     }
 }
