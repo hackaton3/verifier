@@ -14,7 +14,7 @@ public class StardardFileGenerator {
 	public static List<Component> generateFile() {
 		int i = 0;
 		List<Component> components = new ArrayList<Component>();
-
+//
 		Component cmp = MockUtils.mockEmptyComponent("Base", "/BASE");
 		List<Host> hosts = new ArrayList<Host>();
 		List<Template> templates = new ArrayList<Template>();
