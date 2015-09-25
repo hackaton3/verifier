@@ -19,12 +19,29 @@ public class StardardFileGenerator {
 		List<Host> hosts = new ArrayList<Host>();
 		List<Template> templates = new ArrayList<Template>();
 		List<Alert> alerts = new ArrayList<Alert>();
-		for (int j = 0; j < 5; j++) {
-			i++;
-			hosts.add(MockUtils.mockOneHost("name" + i));
-			templates.add(MockUtils.mockOneTemplate("name" + i, String.valueOf(i), "00000" + i));
-			alerts.add(MockUtils.mockOneAlert("name" + i, "pattern" + i, i, i * 2, i * 3, i * 2, i * 3));
-		}
+//		for (int j = 0; j < 5; j++) {
+//			i++;
+//			hosts.add(MockUtils.mockOneHost("name" + i));
+//			templates.add(MockUtils.mockOneTemplate("name" + i, String.valueOf(i), "00000" + i));
+//			alerts.add(MockUtils.mockOneAlert("name" + i, "pattern" + i, i, i * 2, i * 3, i * 2, i * 3));
+//		}
+		templates.add(MockUtils.mockOneTemplate("Calculate Content File Checksum", "1", ""));
+		templates.add(MockUtils.mockOneTemplate("Create Or Update Title", "9", ""));
+		templates.add(MockUtils.mockOneTemplate("Handle Asset Reprocessing", "4", ""));
+		templates.add(MockUtils.mockOneTemplate("Handle Asset Without Content", "7", "00000" + i));
+		templates.add(MockUtils.mockOneTemplate("Handle Content File Ingestion", "3", ""));
+		templates.add(MockUtils.mockOneTemplate("Handle Delete Verb", "1", ""));
+		templates.add(MockUtils.mockOneTemplate("Handle Metadata Validation", "6", ""));
+		templates.add(MockUtils.mockOneTemplate("Handle Metadata Version Control", "1", ""));
+		templates.add(MockUtils.mockOneTemplate("Ingest Common Template", "56", "120112"));
+		templates.add(MockUtils.mockOneTemplate("Ingest Common Template", "56", "AD0101"));
+		templates.add(MockUtils.mockOneTemplate("Ingest Common Template", "56", "CM0155"));
+		templates.add(MockUtils.mockOneTemplate("Parse Ingestion File", "6", ""));
+		templates.add(MockUtils.mockOneTemplate("Validate Checksums By Configuration", "5", ""));
+		templates.add(MockUtils.mockOneTemplate("Validate Metadata", "1", ""));
+		
+		templates.add(MockUtils.mockOneTemplate("Validate Metadata12312", "1", ""));
+		
 		cmp.setHosts(hosts);
 		cmp.setTemplates(templates);
 		cmp.setAlerts(alerts);
@@ -34,12 +51,14 @@ public class StardardFileGenerator {
 		hosts = new ArrayList<Host>();
 		templates = new ArrayList<Template>();
 		alerts = new ArrayList<Alert>();
-		for (int j = 0; j < 5; j++) {
-			i++;
-			hosts.add(MockUtils.mockOneHost("name" + i));
-			templates.add(MockUtils.mockOneTemplate("name" + i, String.valueOf(i), "00000" + i));
-			alerts.add(MockUtils.mockOneAlert("name" + i, "pattern" + i, i, i * 2, i * 3, i * 2, i * 3));
-		}
+//		for (int j = 0; j < 5; j++) {
+//			i++;
+//			hosts.add(MockUtils.mockOneHost("name" + i));
+//			templates.add(MockUtils.mockOneTemplate("name" + i, String.valueOf(i), "00000" + i));
+//			alerts.add(MockUtils.mockOneAlert("name" + i, "pattern" + i, i, i * 2, i * 3, i * 2, i * 3));
+//		}
+		templates.add(MockUtils.mockOneTemplate("Validate Manifest", "1", ""));
+		
 		cmp.setHosts(hosts);
 		cmp.setTemplates(templates);
 		cmp.setAlerts(alerts);
@@ -49,12 +68,13 @@ public class StardardFileGenerator {
 		hosts = new ArrayList<Host>();
 		templates = new ArrayList<Template>();
 		alerts = new ArrayList<Alert>();
-		for (int j = 0; j < 5; j++) {
-			i++;
-			hosts.add(MockUtils.mockOneHost("name" + i));
-			templates.add(MockUtils.mockOneTemplate("name" + i, String.valueOf(i), "00000" + i));
-			alerts.add(MockUtils.mockOneAlert("name" + i, "pattern" + i, i, i * 2, i * 3, i * 2, i * 3));
-		}
+//		for (int j = 0; j < 5; j++) {
+//			i++;
+//			hosts.add(MockUtils.mockOneHost("name" + i));
+//			templates.add(MockUtils.mockOneTemplate("name" + i, String.valueOf(i), "00000" + i));
+//			alerts.add(MockUtils.mockOneAlert("name" + i, "pattern" + i, i, i * 2, i * 3, i * 2, i * 3));
+//		}
+		
 		cmp.setHosts(hosts);
 		cmp.setTemplates(templates);
 		cmp.setAlerts(alerts);
