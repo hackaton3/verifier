@@ -34,8 +34,8 @@ public class VerifyService {
     public static final String KEY_CS_NODES = "cluster_service_nodes";
     public static final String KEY_APP_NODES = "cluster_app_nodes";
 
-    public void performVerify() {
-        System.out.println("performVerify");
+    public void performVerify(List<Component> expectedComponents, String sysInfoJsonPath) {
+        verify(expectedComponents, sysInfoJsonPath);
     }
 
     @SuppressWarnings("unchecked")
