@@ -1,5 +1,6 @@
 package com.verify.main;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -22,6 +23,8 @@ public class VerificationApplication implements CommandLineRunner{
     private static final String ARG_VERIFY = "--verify";
     private static final Pattern ARG_INSTALL_PKG_ROOT = Pattern.compile("--install-pkg-root=(\\S+)");
     private static final Pattern ARG_EXPECT_INFO = Pattern.compile("--expect-info=(\\S+)");
+    
+    private static final String SYS_INFO_FILENAME = "install_sysInfo.json";
 	
 	@Autowired
 	private VerifyService service;
@@ -35,6 +38,7 @@ public class VerificationApplication implements CommandLineRunner{
         boolean verify = false;
         String sysInfoJsonPath = "";
         String installPackagePath = "";
+        String expectInfo = "";
 
         // extract arguments from command line
         for (String arg : args) {
@@ -45,15 +49,16 @@ public class VerificationApplication implements CommandLineRunner{
                 verify = true;
             } else if (matPkgRoot.find()) {
                 installPackagePath = matPkgRoot.group(1);
+                sysInfoJsonPath = installPackagePath + File.separator + SYS_INFO_FILENAME;
             } else if (matExpInfo.find()) {
-                sysInfoJsonPath = matExpInfo.group(1);
+                expectInfo = matExpInfo.group(1);
             }
         }
 
         if (verify) {
             // resolve installed component list
             ResolveInstalledComponents cmpResolver = new ResolveInstalledComponents();
-            List<Component> components = cmpResolver.resolve(installPackagePath);
+            List<Component> components = cmpResolver.resolve(expectInfo);
 
             service.performVerify(components, sysInfoJsonPath);
         }

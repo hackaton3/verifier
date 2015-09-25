@@ -67,7 +67,7 @@ public class VerifyService {
             // verify templates and raise errors
             errInfo4Component.append(TemplateValidator.validate(comp.getTemplates(), installedTemplates));
             // verify resources and raise errors
-            errInfo4Component.append(ResourceValidator.validate(comp.getResources(), installedResources));
+//            errInfo4Component.append(ResourceValidator.validate(comp.getResources(), installedResources));
             
             if (errInfo4Component.length() > 0) {
                 ErrorInfoHelper.addHeader2ErrorInfo(errInfo4Component, comp.getPath());
