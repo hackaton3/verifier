@@ -19,12 +19,6 @@ public class StardardFileGenerator {
 		List<Host> hosts = new ArrayList<Host>();
 		List<Template> templates = new ArrayList<Template>();
 		List<Alert> alerts = new ArrayList<Alert>();
-//		for (int j = 0; j < 5; j++) {
-//			i++;
-//			hosts.add(MockUtils.mockOneHost("name" + i));
-//			templates.add(MockUtils.mockOneTemplate("name" + i, String.valueOf(i), "00000" + i));
-//			alerts.add(MockUtils.mockOneAlert("name" + i, "pattern" + i, i, i * 2, i * 3, i * 2, i * 3));
-//		}
 		templates.add(MockUtils.mockOneTemplate("Calculate Content File Checksum", "1", ""));
 		templates.add(MockUtils.mockOneTemplate("Create Or Update Title", "9", ""));
 		templates.add(MockUtils.mockOneTemplate("Handle Asset Reprocessing", "4", ""));
@@ -47,6 +41,12 @@ public class StardardFileGenerator {
 		hosts.add(MockUtils.mockOneHost("watchpoint-app"));
 		hosts.add(MockUtils.mockOneHost("Heavy_Use_FMS"));
 		hosts.add(MockUtils.mockOneHost("Metadata_FMS"));
+
+        alerts.add(MockUtils.mockOneAlert("Resource Failed", ".*Failure Event for Resource.*", 1051, 100, 1, 100, 60));
+        alerts.add(MockUtils.mockOneAlert("Resource Initialization Failure", ".*Initialization Error.*", 1052, 100, 1,
+                100, 60));
+        alerts.add(MockUtils.mockOneAlert("Checksum Mismatch Warning", ".*Checksum mismatch warning for title.*", 1011,
+                100, 1, 1, 60));
 		
 		for (int j = 0; j < 5; j++) {
 			i++;
@@ -65,13 +65,11 @@ public class StardardFileGenerator {
 		
 		templates = new ArrayList<Template>();
 		alerts = new ArrayList<Alert>();
-//		for (int j = 0; j < 5; j++) {
-//			i++;
-//			hosts.add(MockUtils.mockOneHost("name" + i));
-//			templates.add(MockUtils.mockOneTemplate("name" + i, String.valueOf(i), "00000" + i));
-//			alerts.add(MockUtils.mockOneAlert("name" + i, "pattern" + i, i, i * 2, i * 3, i * 2, i * 3));
-//		}
 		templates.add(MockUtils.mockOneTemplate("Validate Manifest", "1", ""));
+		
+		alerts = new ArrayList<Alert>();
+        alerts.add(MockUtils.mockOneAlert("Fabrix Distribution Fail", ".*Distribution to Fabrix is failed.*", 1067, 100, 1, 1, 60));
+        alerts.add(MockUtils.mockOneAlert("Fabrix Distribution Success", ".*Distribution to Fabrix is successful.*", 1068, 100, 1, 1, 60));
 		
 		cmp.setHosts(hosts);
 		cmp.setTemplates(templates);
@@ -83,7 +81,6 @@ public class StardardFileGenerator {
 		hosts.add(MockUtils.mockOneHost("Package"));
 		hosts.add(MockUtils.mockOneHost("NameServer"));
 		hosts.add(MockUtils.mockOneHost("PropagationDirector"));
-		
 		
 		templates = new ArrayList<Template>();
 		alerts = new ArrayList<Alert>();
